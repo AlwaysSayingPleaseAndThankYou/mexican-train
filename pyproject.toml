@@ -1,0 +1,10 @@
+name = "mexican_train"
+description = "a recursive algorithm capable of playing the game mexican train"
+Version = "0.1" 
+Author = "Hot Push Up Guy 420"
+packages = [
+	{include = "mexican_train.py"}
+]
+#requirements
+[tools.poetry.dependencies]
+python = "3.8.2"
