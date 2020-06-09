@@ -10,8 +10,7 @@ class Player:
         self.hand_size = hand_size
         self.tiles = []
         self.open = False
-        self.train = [[13, endtile]]
-        self._possible_trains = [
+        self.possible_trains = [
             [[13, 13], [13, endtile]]
         ]
 
@@ -23,23 +22,18 @@ class Player:
                 useble_tiles.append(tile)
         return useble_tiles
 
-    def build_train(self, useble_tiles):
+    def build_train(self):
         """Append a useable tile to a theoretical train."""
-        print('this is build_train')
-        while(len(useble_tiles) > 0):
-            tile = useble_tiles.pop()
-            print('this is the tile were working with')
-            print(tile)
-            for train in self._possible_trains:
+        useble_tiles = self.report_my_tiles()
+        for tile in useble_tiles:
+            for train in self.possible_trains:
                 if not train:
-                    continue
-                print('this is the train')
-                print(train)
-                if train[-1][1] in tile:
-                    tile_to_place = self._align_tile(tile, train[-1][1])
-                    self._possible_trains.append(train.append(tile_to_place))
-                    print('finishing the a loop')
-        return self._possible_trains
+                    self.possible_trains.remove(None)
+                    break
+                self._align_tile(tile, train[-1][1])
+                added: list = train.append(tile)
+                self.possible_trains.append(added)
+        return self.possible_trains
 
     def _align_tile(self, tile, end):
         """Rotate tile as necessay.
@@ -50,3 +44,11 @@ class Player:
         if tile[0] != end:
             tile.reverse()
         return tile
+
+    def report_my_tiles(self):
+        useable_tiles = []
+        for train in self.possible_trains:
+            for tile in self.tiles:
+                if train[-1][1] in tile and train[-1][1] not in useable_tiles:
+                    useable_tiles.append(tile)
+        return useable_tiles

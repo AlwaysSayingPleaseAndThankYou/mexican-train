@@ -12,6 +12,7 @@ class Board:
         self.boneyard = self._make_tiles()
         self.double = False
         self.mexican_train = round
+        self.boneyard.remove([round, round])
 
     def _make_tiles(self):
         """Generate all possible tiles, [0,0]=>[12,12]."""

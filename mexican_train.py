@@ -46,8 +46,10 @@ def main(num_players):
     game_board = Board()
     players = create_players(num_players, game_board)
     useable_tiles = players[0]._find_useable_tiles(reporter(players, game_board))
-    players[0].build_train(useable_tiles)
-    # return reporter(players, game_board)
+    for player in players:
+        player.build_train()
+        print(player.possible_trains)
+    return None
 
 
 if __name__ == '__main__':
