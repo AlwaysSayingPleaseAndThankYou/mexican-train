@@ -50,6 +50,6 @@ class Player:
         for train in self.possible_trains:
             for tile in self.tiles:
                 if train[-1][1] in tile and train[-1][1] not in useable_tiles:
-                    useable_tiles.append(tile)
+                    useable_tiles.append(self._align_tile(tile, train[-1][1]))
         return useable_tiles
 
