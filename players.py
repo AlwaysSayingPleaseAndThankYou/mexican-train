@@ -46,10 +46,21 @@ class Player:
         return tile
 
     def report_my_tiles(self):
+        """Find tiles that can be added to a train."""
         useable_tiles = []
         for train in self.possible_trains:
             for tile in self.tiles:
                 if train[-1][1] in tile and train[-1][1] not in useable_tiles:
                     useable_tiles.append(self._align_tile(tile, train[-1][1]))
         return useable_tiles
+
+    def _clean_trains(self):
+        """Remove trains that are shorter than max length."""
+        train_lens = []
+        for train in self.possible_trains:
+            train_lens.append(len(train))
+        for train in self.possible_trains:
+            if len(train) < max(train_lens):
+                self.possible_trains.remove(train)
+
 
