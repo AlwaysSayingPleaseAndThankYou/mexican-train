@@ -52,3 +52,4 @@ class Player:
                 if train[-1][1] in tile and train[-1][1] not in useable_tiles:
                     useable_tiles.append(tile)
         return useable_tiles
+
