@@ -13,13 +13,7 @@ class Player:
         self.possible_trains = [
             [[13, 13], [13, endtile]]
         ]
-
-    # # @property
-    # def possible_trains(self):
-    # #     while None in self._possible_trains:
-    # #         self._possible_trains.remove(None)
-    #     return self._possible_trains
-
+        self.train = [[13, 13],[13, endtile]]
 
     def _find_useable_tiles(self, report):
         """Review at all trains that can be built on your own board."""
@@ -31,6 +25,7 @@ class Player:
 
     def build_train(self):
         """Append a useable tile to a theoretical train."""
+        # TODO: need to remove possible train tile from tiles
         useble_tiles = self.report_my_tiles()
         for tile in useble_tiles:
             useble_tiles.remove(tile)
@@ -67,5 +62,32 @@ class Player:
         for train in self.possible_trains:
             if len(train) < max(train_lens):
                 self.possible_trains.remove(train)
+
+    def take_turn(self, board)
+        """Check doubles, mexican train or play tiles"""
+        # check if doubles on board
+        if board.double:
+            double_tile = board.mexican_train[-1][1]
+            if [double_tile, double_tile] in self.tiles:
+                self.tiles.remove([double_tile, double_tile])
+                board.mexican_train.append[double_tile, double_tile]
+                board.double = False
+        # play on my own train
+        elif len(self.possible_trains) > 0:
+            for tile in self.possible_trains:
+                self.possible_trains.remove(tile)
+                if tile not in self.train:
+                    self.train.append(tile)
+        # play on mexican train
+        elif len(self.tiles) > 0:
+            final_tile = board.mexican_train[-1][1]
+            for tile in self.tiles:
+                if final_tile in tile:
+                    self.tiles.remove(tile)
+                    board.mexican_train.append(tile)
+        # if this all fucks up draw
+        else:
+            self.tiles.append(board.deal_tile())
+
 
 
