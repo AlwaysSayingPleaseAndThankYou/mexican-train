@@ -26,3 +26,8 @@ class Board:
         """Give a tile out to a player, remove it from the boneyard."""
         index = random.choice(range(len(self.boneyard)))
         return self.boneyard.pop(index)
+
+    def add_to_mexican_train(self, tile):
+        """Add player tile to mexican train"""
+        # TODO: tile should be sanitized and checked
+        self.mexican_train.append(tile)
