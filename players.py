@@ -14,6 +14,13 @@ class Player:
             [[13, 13], [13, endtile]]
         ]
 
+    # # @property
+    # def possible_trains(self):
+    # #     while None in self._possible_trains:
+    # #         self._possible_trains.remove(None)
+    #     return self._possible_trains
+
+
     def _find_useable_tiles(self, report):
         """Review at all trains that can be built on your own board."""
         useble_tiles = []
@@ -24,15 +31,13 @@ class Player:
 
     def build_train(self):
         """Append a useable tile to a theoretical train."""
+        # TODO: completely rebuild this
         useble_tiles = self.report_my_tiles()
         for tile in useble_tiles:
+            useble_tiles.remove(tile)
             for train in self.possible_trains:
-                if not train:
-                    self.possible_trains.remove(None)
-                    break
                 self._align_tile(tile, train[-1][1])
-                added: list = train.append(tile)
-                self.possible_trains.append(added)
+                self.possible_trains.append(tile)
         return self.possible_trains
 
     def _align_tile(self, tile, end):
@@ -58,12 +63,8 @@ class Player:
         """Remove trains that are shorter than max length."""
         train_lens = []
         for train in self.possible_trains:
-            if train is not None:
-              train_lens.append(len(train))
-            else:
-                break
+          train_lens.append(len(train))
         for train in self.possible_trains:
-            if train is not
             if len(train) < max(train_lens):
                 self.possible_trains.remove(train)
 
