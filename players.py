@@ -54,12 +54,16 @@ class Player:
                     useable_tiles.append(self._align_tile(tile, train[-1][1]))
         return useable_tiles
 
-    def _clean_trains(self):
+    def clean_trains(self):
         """Remove trains that are shorter than max length."""
         train_lens = []
         for train in self.possible_trains:
-            train_lens.append(len(train))
+            if train is not None:
+              train_lens.append(len(train))
+            else:
+                break
         for train in self.possible_trains:
+            if train is not
             if len(train) < max(train_lens):
                 self.possible_trains.remove(train)
 
