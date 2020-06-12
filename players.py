@@ -31,13 +31,13 @@ class Player:
 
     def build_train(self):
         """Append a useable tile to a theoretical train."""
-        # TODO: completely rebuild this
         useble_tiles = self.report_my_tiles()
         for tile in useble_tiles:
             useble_tiles.remove(tile)
             for train in self.possible_trains:
-                self._align_tile(tile, train[-1][1])
-                self.possible_trains.append(tile)
+                if tile[0] == train[-1][1] or tile[1] == train[-1][1]:
+                    self._align_tile(tile, train[-1][1])
+                    train.append(tile)
         return self.possible_trains
 
     def _align_tile(self, tile, end):
