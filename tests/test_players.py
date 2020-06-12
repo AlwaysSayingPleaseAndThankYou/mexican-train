@@ -15,6 +15,7 @@ def example_player(example_board):
 
 
 def test_build_train(example_player):
+    tiles = example_player.tiles
     assert False
 
 
