@@ -6,6 +6,7 @@ class Player:
 
     def __init__(self, player_number, hand_size, endtile):
         """Initialize player pieces and util values."""
+        # TODO: must recompute train after getting doubled
         self.player_number = player_number
         self.hand_size = hand_size
         self.tiles = []
@@ -63,15 +64,17 @@ class Player:
             if len(train) < max(train_lens):
                 self.possible_trains.remove(train)
 
-    def take_turn(self, board)
+    def take_turn(self, board):
         """Check doubles, mexican train or play tiles"""
+        # TODO: Okay this needs to be tested
         # check if doubles on board
         if board.double:
             double_tile = board.mexican_train[-1][1]
             if [double_tile, double_tile] in self.tiles:
                 self.tiles.remove([double_tile, double_tile])
-                board.mexican_train.append[double_tile, double_tile]
+                board.mexican_train.append([double_tile, double_tile])
                 board.double = False
+                # TODO: this must rebuild the theory train
         # play on my own train
         elif len(self.possible_trains) > 0:
             for tile in self.possible_trains:
@@ -79,6 +82,8 @@ class Player:
                 if tile not in self.train:
                     self.train.append(tile)
         # play on mexican train
+        # TODO: This needs to go after doubles
+        # TODO: this needs to check the other open trains as well
         elif len(self.tiles) > 0:
             final_tile = board.mexican_train[-1][1]
             for tile in self.tiles:
@@ -89,5 +94,7 @@ class Player:
         else:
             self.tiles.append(board.deal_tile())
 
-
+    def last_tile(self):
+        # use this: https://stackoverflow.com/questions/6190468/how-to-trigger-function-on-value-change
+        pass
 
