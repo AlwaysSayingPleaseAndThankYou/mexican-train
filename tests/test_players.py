@@ -1,23 +1,19 @@
-import pytest
-from board import Board
 from players import Player
 
 
-@pytest.fixture
-def example_board():
-    test_board = Board()
-    return test_board
-
-
-@pytest.fixture
-def example_player(example_board):
-    return Player(0, 15, example_board.round)
-
-
 def test_build_train(example_player):
-    tiles = example_player.tiles
-    assert False
+    assert len(example_player.tiles) == 0
 
 
 def test_last_tile():
     assert False
+
+
+def test__create_player(example_board):
+    player = Player(0, 15, example_board)
+    assert player.hand_size == 15
+    assert len(player.tiles) == player.hand_size + 1
+    assert player.open is False
+    # check tiles have been taken from board
+    for tile in player.tiles:
+        assert tile not in example_board.boneyard

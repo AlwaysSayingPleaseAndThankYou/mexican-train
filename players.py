@@ -4,7 +4,7 @@
 class Player:
     """Player class and related values."""
 
-    def __init__(self, player_number, hand_size, endtile):
+    def __init__(self, player_number, hand_size, board):
         """Initialize player pieces and util values."""
         # TODO: must recompute train after getting doubled
         self.player_number = player_number
@@ -12,9 +12,17 @@ class Player:
         self.tiles = []
         self.open = False
         self.possible_trains = [
-            [[13, 13], [13, endtile]]
+            [[13, 13], [13, board.round]]
         ]
-        self.train = [[13, 13],[13, endtile]]
+        self.train = [[13, 13],[13, board.round]]
+        self._create_player(board)
+
+    def _create_player(self, board):
+        """Deals tiles to player from board."""
+        i = 0
+        while i <= self.hand_size:
+            self.tiles.append(board.deal_tile())
+            i += 1
 
     def _find_useable_tiles(self, report):
         """Review at all trains that can be built on your own board."""

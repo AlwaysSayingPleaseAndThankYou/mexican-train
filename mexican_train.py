@@ -15,19 +15,6 @@ def deal_num(num_players):
     return hand_size
 
 
-def create_players(num_players, board):
-    """Create the number of players for the game and initialize them."""
-    players = []
-    for i in range(num_players):
-        players.append(Player(i, deal_num(num_players), board.round))
-    for player in players:
-        i = 0
-        while i <= player.hand_size:
-            player.tiles.append(board.deal_tile())
-            i += 1
-    return players
-
-
 def reporter(players, board):
     """Return all the end tiles on the board.
 
@@ -45,22 +32,10 @@ def reporter(players, board):
 def main(num_players):
     """Play the game."""
     game_board = Board()
-    players = create_players(num_players, game_board)
+    players = []
+    for i in range(num_players):
+        players.append(Player(i, deal_num(num_players), game_board))
     # TODO: each player must build their largest possible trains
-    # players[0].possible_trains.append([[13, 13], [13, 12], [12, 8]])
-    # players[0].possible_trains.append([[13, 13], [13, 7]])
-    # print('built')
-    # print(players[0].build_train())
-    # print('possible - w append')
-    # print(players[0].possible_trains)
-    # players[0].clean_trains()
-    # print('clean')
-    # print(players[0].possible_trains)
-
-    # useable_tiles = players[0]._find_useable_tiles(reporter(players, game_board))
-    # for player in players:
-    #     player.build_train()
-    #     print(player.possible_trains)
 
 
 if __name__ == '__main__':
