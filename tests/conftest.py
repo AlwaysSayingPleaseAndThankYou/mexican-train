@@ -10,4 +10,8 @@ def example_board():
 
 @pytest.fixture
 def example_player(example_board):
-    return Player(0, 15, example_board.round)
+    return Player(0, 15, example_board)
+
+@pytest.fixture
+def example_players(example_board):
+    return None
