@@ -21,6 +21,7 @@ def create_players(num_players, board):
     for i in range(num_players):
         players.append(Player(i, deal_num(num_players), board.round))
     for player in players:
+        i = 0
         while i <= player.hand_size:
             player.tiles.append(board.deal_tile())
             i += 1
