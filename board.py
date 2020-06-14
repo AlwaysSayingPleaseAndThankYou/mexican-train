@@ -31,3 +31,8 @@ class Board:
         """Add player tile to mexican train"""
         # TODO: tile should be sanitized and checked
         self.mexican_train.append(tile)
+
+    def check_opens(self, players):
+        opens = [0] * (len(players) + 1)
+        for player in players:
+        pass

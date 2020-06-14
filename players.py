@@ -14,7 +14,7 @@ class Player:
         self.possible_trains = [
             [[13, 13], [13, board.round]]
         ]
-        self.train = [[13, 13],[13, board.round]]
+        self.train = [[13, 13], [13, board.round]]
         self._create_player(board)
 
     def _create_player(self, board):
@@ -72,7 +72,7 @@ class Player:
             if len(train) < max(train_lens):
                 self.possible_trains.remove(train)
 
-    def take_turn(self, board):
+    def take_turn(self, board, report):
         """Check doubles, mexican train or play tiles"""
         # TODO: Okay this needs to be tested
         # check if doubles on board
