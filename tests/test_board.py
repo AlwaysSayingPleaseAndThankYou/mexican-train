@@ -1,5 +1,4 @@
 import pytest
-from board import Board
 
 
 @pytest.mark.parametrize("tile, index, opens", [
@@ -17,5 +16,14 @@ def test_play_tile(example_board, example_player, tile, index, opens):
     assert example_board.opens[0] is opens
 
 
-def test_report_playables(example_board):
-    assert False
+@pytest.mark.parametrize("ends, opens", ([
+    ([10, 4, 12], [True, False, True]),
+    ([8, 7, 11], [True, False, True])
+]))
+def test_report_playables(example_board, ends, opens):
+    # 2 player game
+    example_board.ends = ends
+    example_board.opens = opens
+    returned = example_board.report_playables()
+    assert len(returned) == example_board.opens.count(True)
+    assert ends[1] not in returned
