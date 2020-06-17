@@ -25,27 +25,6 @@ class Player(Brain):
             self.tiles.append(board.deal_tile())
             i += 1
 
-    def _find_useable_tiles(self, report):
-        # This should be the reporter function
-        """Review at all trains that can be built on your own board."""
-        useble_tiles = []
-        for tile in self.tiles:
-            if report[-1] in tile:
-                useble_tiles.append(tile)
-        return useble_tiles
-
-    def build_train(self):
-        """Append a useable tile to a theoretical train."""
-        # TODO: need to remove possible train tile from tiles
-        useble_tiles = self.report_my_tiles()
-        for tile in useble_tiles:
-            useble_tiles.remove(tile)
-            for train in self.possible_trains:
-                if tile[0] == train[-1][1] or tile[1] == train[-1][1]:
-                    self._align_tile(tile, train[-1][1])
-                    train.append(tile)
-        return self.possible_trains
-
     def _align_tile(self, tile, end):
         """Rotate tile as necessay.
 
@@ -57,6 +36,8 @@ class Player(Brain):
         return tile
 
     def report_my_tiles(self):
+        # TODO: This needs to be redone
+        # should find tiles not in developing train
         """Find tiles that can be added to a train."""
         useable_tiles = []
         for train in self.possible_trains:
@@ -64,15 +45,6 @@ class Player(Brain):
                 if train[-1][1] in tile and train[-1][1] not in useable_tiles:
                     useable_tiles.append(self._align_tile(tile, train[-1][1]))
         return useable_tiles
-
-    def clean_trains(self):
-        """Remove trains that are shorter than max length."""
-        train_lens = []
-        for train in self.possible_trains:
-            train_lens.append(len(train))
-        for train in self.possible_trains:
-            if len(train) < max(train_lens):
-                self.possible_trains.remove(train)
 
     # def take_turn(self, board, report):
     #     """Check doubles, mexican train or play tiles"""
