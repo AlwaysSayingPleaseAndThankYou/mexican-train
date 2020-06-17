@@ -6,7 +6,7 @@ from players import Player
 
 @pytest.fixture
 def example_board():
-    test_board = Board()
+    test_board = Board(4)
     return test_board
 
 

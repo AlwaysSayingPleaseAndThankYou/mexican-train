@@ -34,10 +34,10 @@ class Board:
         playables = []
         for val in enumerate(self.opens):
             if val[1] is True:
-                playables.append(self.ends[val[0]])
+                playables.append(tuple([self.ends[val[0]], val[0]]))
         return playables
 
-    def play_tile(self, tile, player_num):
+    def play_tile(self, tile, train_num):
         """Take a tile from player, add it to the board"""
         # TODO: this can replace add_to_mexican_train
         # TODO: this necessitates a play_tile func for player to produce tile
