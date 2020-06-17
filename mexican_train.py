@@ -4,6 +4,7 @@ from players import Player
 
 
 def deal_num(num_players):
+    # Should this be a function of board?
     """Return number of tile each player gets in starting hand."""
     hand_size = 0
     if num_players in [1, 2, 3, 4]:
@@ -15,23 +16,9 @@ def deal_num(num_players):
     return hand_size
 
 
-def reporter(players, board):
-    """Return all the end tiles on the board.
-
-    Needs to only return the value if the train is open.
-    Otherwise append null.
-    """
-    report = []
-    for player in players:
-        if player.open:
-            report.append(player.end)
-    report.append(board.mexican_train)
-    return report
-
-
 def main(num_players):
     """Play the game."""
-    game_board = Board()
+    game_board = Board(num_players)
     players = []
     for i in range(num_players):
         players.append(Player(i, deal_num(num_players), game_board))

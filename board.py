@@ -39,7 +39,6 @@ class Board:
 
     def play_tile(self, tile, train_num, player_id):
         """Take a tile from player, add it to the board"""
-        # TODO: this can replace add_to_mexican_train
         # TODO: this necessitates a play_tile func for player to produce tile
         # - make it part of the turn function
         if train_num == player_id:
