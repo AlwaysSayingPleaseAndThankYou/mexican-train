@@ -37,19 +37,18 @@ class Board:
                 playables.append(tuple([self.ends[val[0]], val[0]]))
         return playables
 
-    def play_tile(self, tile, train_num):
+    def play_tile(self, tile, train_num, player_id):
         """Take a tile from player, add it to the board"""
         # TODO: this can replace add_to_mexican_train
         # TODO: this necessitates a play_tile func for player to produce tile
         # - make it part of the turn function
-        pass
+        if train_num == player_id:
+            self.opens[player_id] = False
+        self.ends[train_num] = tile[1]
+        if tile[0] == tile[1]:
+            self.double = True
 
     def deal_tile(self):
         """Give a tile out to a player, remove it from the boneyard."""
         index = random.choice(range(len(self.boneyard)))
         return self.boneyard.pop(index)
-
-    def add_to_mexican_train(self, tile):
-        """Add player tile to mexican train"""
-        # TODO: tile should be sanitized and checked
-        self.mexican_train.append(tile)

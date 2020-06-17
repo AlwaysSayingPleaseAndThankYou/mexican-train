@@ -8,13 +8,29 @@ import pytest
 def test_play_tile(example_board, example_player, tile, index, opens, train_num):
     """Two player game
     Tile should only be passed if its a valid tile
-    Should only test a valid set of tiles
-    TODO: This can be rewritten for players to play on different trains"""
+    Should only test a valid set of tiles"""
+    # This should close the train if Player_ID == train_num
     example_board.opens = [True, False, True]
     example_board.ends = [8, 10, 12]
     example_board.play_tile(tile, train_num)
     assert example_board.ends[index] == tile[1]
     assert example_board.opens[train_num] is opens
+
+
+# 2 player game
+@pytest.mark.parametrize("tile, player_id, train", [
+    ([4, 7], 0, 0),
+    ([6, 10], 0, 1),
+    ([12, 3], 0, 2)])
+def test_play_tile(example_board, tile, player_id, train):
+    example_board.opens = [True, True, True]
+    example_board.ends = [6, 4, 12]
+    example_board.play_tile(tile, train, player_id)
+    if player_id == train:
+        assert example_board.opens[train] is False
+    else:
+        assert example_board.opens[train] is True
+    assert example_board.ends[train] == tile[1]
 
 
 @pytest.mark.parametrize("ends, opens", ([
