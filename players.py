@@ -1,4 +1,5 @@
 """Player class and related functions."""
+from Utils import align_tile
 
 
 class Player:
@@ -40,19 +41,10 @@ class Player:
             useble_tiles.remove(tile)
             for train in self.possible_trains:
                 if tile[0] == train[-1][1] or tile[1] == train[-1][1]:
-                    self._align_tile(tile, train[-1][1])
+                    self.align_tile(tile, train[-1][1])
                     train.append(tile)
         return self.possible_trains
 
-    def _align_tile(self, tile, end):
-        """Rotate tile as necessay.
-
-        Ex: tile = [2,1], end = 1
-        returns [1,2]
-        """
-        if tile[0] != end:
-            tile.reverse()
-        return tile
 
     def report_my_tiles(self):
         """Find tiles that can be added to a train."""
@@ -60,7 +52,7 @@ class Player:
         for train in self.possible_trains:
             for tile in self.tiles:
                 if train[-1][1] in tile and train[-1][1] not in useable_tiles:
-                    useable_tiles.append(self._align_tile(tile, train[-1][1]))
+                    useable_tiles.append(self.align_tile(tile, train[-1][1]))
         return useable_tiles
 
     def clean_trains(self):
