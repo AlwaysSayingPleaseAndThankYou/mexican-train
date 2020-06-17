@@ -1,19 +1,20 @@
 import pytest
 
 
-@pytest.mark.parametrize("tile, index, opens", [
-    ([8, 1], 0, False),
-    ([10, 7], 1, True)])
-def test_play_tile(example_board, example_player, tile, index, opens):
-    # Two player game
-    # Example Player is player 0
+@pytest.mark.parametrize("tile, index, opens, player_id", [
+    ([8, 1], 0, False, 0),
+    ([10, 7], 1, False, 1)])
+# TODO: I have completely lost the thread here
+def test_play_tile(example_board, example_player, tile, index, opens, player_id):
+    """Two player game
+    Tile should only be passed if its a valid tile
+    Should only test a valid set of tiles
+    TODO: This can be rewritten for players with different player_ids """
     example_board.opens = [True, False, True]
     example_board.ends = [8, 10, 12]
-    # Tile should be sanitized by other functions
-    # Should only test a valid set of tiles
-    example_board.play_tile(tile)
+    example_board.play_tile(tile, player_id)
     assert example_board.ends[index] == tile[1]
-    assert example_board.opens[0] is opens
+    assert example_board.opens[player_id] is opens
 
 
 @pytest.mark.parametrize("ends, opens", ([
