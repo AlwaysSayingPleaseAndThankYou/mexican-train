@@ -37,13 +37,13 @@ def test_play_tile(example_board, example_player, tile, target):
 
 @pytest.mark.parametrize("tile_amt", [10, 0])
 def test_draw_tile(example_player, example_board, capsys, tile_amt):
-    example_board = example_board.boneyard[:tile_amt]
-    stdout = capsys.readouterr()
+    example_board.boneyard = example_board.boneyard[:tile_amt]
     start_tiles = len(example_player.tiles)
     if len(example_board.boneyard) == 0:
         example_player.draw_tile(example_board)
+        out, err = capsys.readouterr()
         assert len(example_player.tiles) == start_tiles
-        assert stdout.out is 'cant draw'
+        assert 'cant draw' in out
     else:
         example_player.draw_tile(example_board)
         assert len(example_player.tiles) > start_tiles
