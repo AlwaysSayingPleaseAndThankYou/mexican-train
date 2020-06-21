@@ -29,3 +29,5 @@ def example_players_6(example_board):
     for i in range(6):
         players_6.append(Player(i, 12, example_board))
     return players_6
+
+# These are all for testing player.take_turn

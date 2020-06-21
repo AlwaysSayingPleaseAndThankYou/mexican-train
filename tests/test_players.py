@@ -61,7 +61,12 @@ def test_last_tile(example_player, capsys, num_tiles):
 
 
 @pytest.mark.parametrize()
-def test_take_turn(example_player, example_board):
+def test_take_turn(example_player, example_board,):
     if example_player.open:
+        # TODO: And you have a tile to play
         example_player.take_turn(example_board)
-    assert False
+        assert example_player.open is False
+        assert example_board.opens[example_player.player_number] is False
+    if example_player.workingTrain[-1] is None:
+        example_player.take_turn(example_board)
+
