@@ -34,7 +34,14 @@ class Player:
         self.tiles.remove(tile)
         self.workingTrain.remove(tile)
 
+    def draw_tile(self, board):
+        """Draw a tile if you can't play.
+        Handles it if there's not tile left to draw."""
+        if len(board.boneyard) == 0:
+            print('cant draw')
+        else:
+            self.tiles.append(board.deal_tile())
+
     def last_tile(self):
         # use this: https://stackoverflow.com/questions/6190468/how-to-trigger-function-on-value-change
         pass
-

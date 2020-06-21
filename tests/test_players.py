@@ -24,7 +24,7 @@ def test_create_many_players(example_board, num_players, round):
 
 
 @pytest.mark.parametrize("tile, target", [([2, 1], 0),
-                                          ([4.11], 3)])
+                                          ([4,11], 3)])
 def test_play_tile(example_board, example_player, tile, target):
     len_tiles = len(example_player.tiles)
     example_player.tiles.append(tile)
@@ -33,3 +33,24 @@ def test_play_tile(example_board, example_player, tile, target):
     assert len(example_player.tiles) == len_tiles
     assert example_board.ends[target] == tile[1]
     assert tile not in example_player.workingTrain
+
+
+@pytest.mark.parametrize("tile_amt", [10, 0])
+def test_draw_tile(example_player, example_board, capsys, tile_amt):
+    example_board = example_board.boneyard[:tile_amt]
+    stdout = capsys.readouterr()
+    start_tiles = len(example_player.tiles)
+    if len(example_board.boneyard) == 0:
+        example_player.draw_tile(example_board)
+        assert len(example_player.tiles) == start_tiles
+        assert stdout.out is 'cant draw'
+    else:
+        example_player.draw_tile(example_board)
+        assert len(example_player.tiles) > start_tiles
+
+
+def test_last_tile(example_player, capsys):
+    example_player.tiles = example_player.tiles[0]
+    example_player.last_tile()
+    stdout = capsys.readouterr()
+    assert stdout.out == 'tap tap'
