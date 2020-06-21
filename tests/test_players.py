@@ -24,7 +24,7 @@ from mexican_train import deal_num
 
 
 @pytest.mark.parametrize("tile, target", [([2, 1], 0),
-                                          ([4,11], 3)])
+                                          ([4, 11], 3)])
 def test_play_tile(example_board, example_player, tile, target):
     len_tiles = len(example_player.tiles)
     example_player.tiles.append(tile)
@@ -58,3 +58,10 @@ def test_last_tile(example_player, capsys, num_tiles):
         assert 'tap tap' in stdout.out
     else:
         assert not stdout.out
+
+
+@pytest.mark.parametrize()
+def test_take_turn(example_player, example_board):
+    if example_player.open:
+        example_player.take_turn(example_board)
+    assert False

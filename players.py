@@ -13,6 +13,7 @@ class Player:
         self.tiles = []
         self.open = False
         self.workingTrain = []
+        self.spare_tiles = []
         self.train = [[13, 13], [13, board.trick]]
         self._create_player(board)
 
@@ -24,13 +25,13 @@ class Player:
             i += 1
 
     def play_tile(self, board, tile, target):
-        """Recieves a tile to play from Brain fucntion.
+        """Receives a tile to play from Brain function.
 
         This is where tiles are finally removed from the game.
         Target is index of train to play on - it is not cheeked here.
         """
-        board.ends[target] = tile[1]
-        # TODO: dying here. target = 3, tile = [4,11]
+        # TODO: This needs to use board.play_tile
+        board.play_tile(tile, target, self.player_number)
         self.tiles.remove(tile)
         self.workingTrain.remove(tile)
 
@@ -46,3 +47,15 @@ class Player:
         # use this: https://stackoverflow.com/questions/6190468/how-to-trigger-function-on-value-change
         if len(self.tiles) == 1:
             print('tap tap')
+
+    def take_turn(self, board):
+        # TODO: when do I rebuild working_train after someone plays on my train?
+        """
+        1. Get report from board
+        2. Play on own train if open
+        2. Play on report if possible
+        3. Play on own train if not
+        4. Draw if you can't play
+        5. Tap tile.
+        """
+        pass
