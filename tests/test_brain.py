@@ -29,10 +29,13 @@ def test__report_train_ends(example_brain, tile):
     assert tile in report or [tile[1], tile[0]] in report
 
 
-def test_find_useable_tiles(example_brain):
-    # TODO: this one is really bad
+@pytest.mark.parametrize("tile", [([1, 2]),
+                                  ([2, 4]),
+                                  ([9, 10])])
+def test_find_useable_tiles(example_brain, tile):
     report = example_brain.find_useable_tiles(example_brain.possible_trains)
-    assert report is not None
+    assert tile in report
+    assert tile not in example_brain.tiles
 
 
 @pytest.mark.parametrize("original_train", [([[13, 12], [12, 2]]),

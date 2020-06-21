@@ -60,7 +60,7 @@ class Brain:
         useble_tiles = []
         for tile in self.tiles:
             for train in train_ends:
-                if train in tile:
+                if train[1] in tile:
                     useble_tiles.append(tile)
                     self.tiles.remove(tile)
         return useble_tiles
@@ -80,6 +80,7 @@ class Brain:
 
     def clean_trains(self):
         """Remove trains that are shorter than max length."""
+        # TODO: this has to put unused tiles back into the tile pool
         train_lens = []
         for train in self.possible_trains:
             train_lens.append(len(train))
