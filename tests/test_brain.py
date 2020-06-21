@@ -41,9 +41,11 @@ def test_find_useable_tiles(example_brain, tile):
 @pytest.mark.parametrize("original_train", [([[13, 12], [12, 2]]),
                                             ([[13, 12], [12, 10]])])
 def test_build_train(example_brain, original_train):
+    original_possibles = example_brain.possible_trains
     report = example_brain.build_train()
     assert any(original_train == train[:2] for train in report)
     assert all(len(train) > len(original_train) for train in report)
+    assert len(example_brain.possible_trains) > len(original_possibles)
 
 
 def test_clean_trains():

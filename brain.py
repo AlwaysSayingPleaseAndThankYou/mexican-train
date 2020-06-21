@@ -69,15 +69,20 @@ class Brain:
         """Append a useable tile to a theoretical train."""
         # TODO: need to remove possible train tile from tiles
         # TODO: Okay, i'm gonna rework this
-        train_ends = self._report_train_ends()
+        new_possibles = []
+        # train_ends = self._report_train_ends()
         useable_tiles = self.find_useable_tiles(self.possible_trains)
+        # TODO: here - new possibilites is resetting for some reason
         for tile in useable_tiles:
-            useable_tiles.remove(tile)
             for train in self.possible_trains:
                 if tile[0] == train[-1][1] or tile[1] == train[-1][1]:
+                    copy = train.copy()
                     align_tile(tile, train[-1][1])
-                    train.append(tile)
-        return self.possible_trains
+                    copy.append(tile)
+                    new_possibles.append(copy)
+            useable_tiles.remove(tile)
+        self.possible_trains = new_possibles
+        return new_possibles
 
     def clean_trains(self):
         """Remove trains that are shorter than max length."""
