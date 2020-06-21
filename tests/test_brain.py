@@ -43,6 +43,7 @@ def test_find_useable_tiles(example_brain, tile):
 def test_build_train(example_brain, original_train):
     report = example_brain.build_train()
     assert any(original_train == train[:2] for train in report)
+    assert all(len(train) > len(original_train) for train in report)
 
 
 def test_clean_trains():

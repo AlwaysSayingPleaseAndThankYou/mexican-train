@@ -69,7 +69,8 @@ class Brain:
         """Append a useable tile to a theoretical train."""
         # TODO: need to remove possible train tile from tiles
         # TODO: Okay, i'm gonna rework this
-        useable_tiles = self.find_useable_tiles(self._report_train_ends())
+        train_ends = self._report_train_ends()
+        useable_tiles = self.find_useable_tiles(self.possible_trains)
         for tile in useable_tiles:
             useable_tiles.remove(tile)
             for train in self.possible_trains:
