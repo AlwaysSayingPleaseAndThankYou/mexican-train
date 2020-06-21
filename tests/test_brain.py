@@ -20,12 +20,13 @@ def example_brain():
                          [[13, 12], [12, 10]]]
     return b
 
+
 # TODO: I bet putting this in a test class means I dont' have to pass them each
 # example brain
 @pytest.mark.parametrize("tile", [([2, 1]), ([10, 5])])
 def test__report_train_ends(example_brain, tile):
     report = example_brain._report_train_ends()
-    assert tile or tile.reverse() in report
+    assert tile in report or [tile[1], tile[0]] in report
 
 
 def test_find_useable_tiles(example_brain):
@@ -34,10 +35,11 @@ def test_find_useable_tiles(example_brain):
     assert report is not None
 
 
-def test_build_train(example_brain):
+@pytest.mark.parametrize("original_train", [([[13, 12], [12, 2]]),
+                                            ([[13, 12], [12, 10]])])
+def test_build_train(example_brain, original_train):
     report = example_brain.build_train()
-    for train in report:
-        assert example_brain.possible_trains[0] in train or example_brain[1] in train
+    assert any(original_train == train[:2] for train in report)
 
 
 def test_clean_trains():

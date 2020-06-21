@@ -2,6 +2,17 @@
 """
 
 
+def align_tile(tile, end):
+    """Rotate tile as necessay.
+
+    Ex: tile = [2,1], end = 1
+    returns [1,2]
+    """
+    if tile[0] != end:
+        tile.reverse()
+    return tile
+
+
 class Brain:
     """Class for seperating out problem solving logic
     Trying to reduce complexity of player class
@@ -49,19 +60,21 @@ class Brain:
         useble_tiles = []
         for tile in self.tiles:
             for train in train_ends:
-                if train[-1] in tile:
+                if train in tile:
                     useble_tiles.append(tile)
+                    self.tiles.remove(tile)
         return useble_tiles
 
     def build_train(self):
         """Append a useable tile to a theoretical train."""
         # TODO: need to remove possible train tile from tiles
-        useble_tiles = self.report_my_tiles()
-        for tile in useble_tiles:
-            useble_tiles.remove(tile)
+        # TODO: Okay, i'm gonna rework this
+        useable_tiles = self.find_useable_tiles(self._report_train_ends())
+        for tile in useable_tiles:
+            useable_tiles.remove(tile)
             for train in self.possible_trains:
                 if tile[0] == train[-1][1] or tile[1] == train[-1][1]:
-                    self._align_tile(tile, train[-1][1])
+                    align_tile(tile, train[-1][1])
                     train.append(tile)
         return self.possible_trains
 
