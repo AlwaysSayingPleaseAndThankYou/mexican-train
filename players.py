@@ -44,4 +44,5 @@ class Player:
 
     def last_tile(self):
         # use this: https://stackoverflow.com/questions/6190468/how-to-trigger-function-on-value-change
-        pass
+        if len(self.tiles) == 1:
+            print('tap tap')
