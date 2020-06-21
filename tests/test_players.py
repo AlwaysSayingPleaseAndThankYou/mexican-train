@@ -23,11 +23,13 @@ def test_create_many_players(example_board, num_players, round):
     assert len(players) == num_players
 
 
-@pytest.mark.parametrize("tile, target",[([2, 1], 0),
-                                         ([4.11], 5)])
+@pytest.mark.parametrize("tile, target", [([2, 1], 0),
+                                          ([4.11], 3)])
 def test_play_tile(example_board, example_player, tile, target):
     len_tiles = len(example_player.tiles)
+    example_player.tiles.append(tile)
+    example_player.workingTrain.append(tile)
     example_player.play_tile(example_board, tile, target)
-    assert len(example_player.tiles) < len_tiles
+    assert len(example_player.tiles) == len_tiles
     assert example_board.ends[target] == tile[1]
     assert tile not in example_player.workingTrain
