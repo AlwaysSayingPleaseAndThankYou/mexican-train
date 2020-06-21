@@ -23,13 +23,11 @@ def test_create_many_players(example_board, num_players, round):
     assert len(players) == num_players
 
 
-@pytest.mark.parametrize("double, len_possible, num_tiles,", [(False, 2, 16),
-                                                              (True, 2, 16)])
-def test_take_turn(example_player, example_board, double, len_possible, num_tiles):
-    example_board.double = double
-    example_player.possible_trains = example_player.possible_trains[:len_possible]
-    example_player.tiles = example_player.tiles[:num_tiles]
-    if example_board.double:
-        example_player.take_turn(example_board)
-        assert example_board.double is False or len(example_player.tiles) == num_tiles + 1
-    elif
+@pytest.mark.parametrize("tile, target",[([2, 1], 0),
+                                         ([4.11], 5)])
+def test_play_tile(example_board, example_player, tile, target):
+    len_tiles = len(example_player.tiles)
+    example_player.play_tile(example_board, tile, target)
+    assert len(example_player.tiles) < len_tiles
+    assert example_board.ends[target] == tile[1]
+    assert tile not in example_player.workingTrain

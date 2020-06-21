@@ -23,6 +23,14 @@ class Player:
             self.tiles.append(board.deal_tile())
             i += 1
 
+    def play_tile(self, board, tile, target):
+        """Recieves a tile to play from Brain fucntion.
+
+        This is where tiles are finally removed from the game.
+        Target is index of train to play on - it is not cheeked here.
+        """
+        pass
+
     def last_tile(self):
         # use this: https://stackoverflow.com/questions/6190468/how-to-trigger-function-on-value-change
         pass
