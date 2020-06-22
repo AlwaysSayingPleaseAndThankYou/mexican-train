@@ -2,27 +2,31 @@ import pytest
 from players import Player
 from mexican_train import deal_num
 
-# TODO: I need to come back to these
-# def test__create_player(example_board):
-#     player = Player(0, 15, example_board)
-#     assert player.hand_size == 15
-#     assert len(player.tiles) == player.hand_size + 1
-#     assert player.open is False
-#     # check tiles have been taken from board
-#     for tile in player.tiles:
-#         assert tile not in example_board.boneyard
-#
-#
-# @pytest.mark.parametrize("num_players, round", [(4, 7),
-#                                                 (6, 3),
-#                                                 (2, 10)])
-# def test_create_many_players(example_board, num_players, round):
-#     players = []
-#     for i in range(num_players):
-#         players.append(Player(i, deal_num(num_players), example_board))
-#     assert len(players) == num_players
+
+# Class creation tests
+@pytest.mark.skip(reason='player class was updated w/o updating this')
+def test__create_player(example_board):
+    player = Player(0, 15, example_board)
+    assert player.hand_size == 15
+    assert len(player.tiles) == player.hand_size + 1
+    assert player.open is False
+    # check tiles have been taken from board
+    for tile in player.tiles:
+        assert tile not in example_board.boneyard
 
 
+@pytest.mark.skip(reason='same as above')
+@pytest.mark.parametrize("num_players, round", [(4, 7),
+                                                (6, 3),
+                                                (2, 10)])
+def test_create_many_players(example_board, num_players, round):
+    players = []
+    for i in range(num_players):
+        players.append(Player(i, deal_num(num_players), example_board))
+    assert len(players) == num_players
+
+
+# Unit Tests
 @pytest.mark.parametrize("tile, target", [([2, 1], 0),
                                           ([4, 11], 3)])
 def test_play_tile(example_board, example_player, tile, target):
@@ -60,12 +64,12 @@ def test_last_tile(example_player, capsys, num_tiles):
         assert not stdout.out
 
 
-@pytest.mark.parametrize()
+# this is getting to be made into better tests
+@pytest.mark.skip(reason='making this a series of integration tests')
 def test_take_turn(example_player, example_board, capsys):
     if example_player.open:
         """This checks if an open player is closed after playing on their own
         train."""
-        # TODO: And you have a tile to play
         example_player.take_turn(example_board)
         assert example_player.open is False
         assert example_board.opens[example_player.player_number] is False
@@ -78,5 +82,37 @@ def test_take_turn(example_player, example_board, capsys):
         assert example_player.open is True
         assert example_board.opens[example_player.player_number] is True
     if example_board.double:
-        # TODO: ending here for the afternoon
         assert False
+
+
+    def test_take_turn():
+        """checks a few unique things about take_turn.
+        1. Opens your train at start of your turn."""
+        assert False
+
+# Integration Tests
+# TODO: rename this
+# TODO: create a player where we know their tiles
+# TODO: this test is not particularly dynamic
+@pytest.mark.parametrize("tile_to_play, spare_tile, index", [([2, 1], [8, 7], 2)])
+def test_turn_a(example_player, example_board, tile_to_play, spare_tile, index):
+    """1 other open train. No Doubles. Tiles remaining.
+    Your train starts closed.
+    """
+    # Setup
+    example_player.workingTrain = [tile_to_play]
+    if tile_to_play not in example_player.tiles:
+        example_player.tiles.append()
+    example_player.spare_tiles = [spare_tile]
+    example_player.train.append([example_board.trick, tile_to_play[0]])
+    example_board.ends[index] = spare_tile[0]
+    example_board.opens[index] = True
+    original_open = example_board.opens.copy()
+    # original_ends = example_board.ends.copy()
+    # Testing starts here
+    example_player.take_turn(example_board)
+    assert len(example_player.workingTrain) == 0
+    assert example_board.opens[example_player.player_number] is False
+    assert example_board.opens == original_open
+    assert tile_to_play not in example_player.tiles
+    assert example_player.train[-1] == tile_to_play
