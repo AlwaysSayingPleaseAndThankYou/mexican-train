@@ -101,7 +101,7 @@ def test_turn_ordinary_turn(example_player, example_board, tile_to_play, spare_t
     # Setup
     example_player.workingTrain = [tile_to_play]
     if tile_to_play not in example_player.tiles:
-        example_player.tiles.append()
+        example_player.tiles.append(tile_to_play)
     example_player.spare_tiles = [spare_tile]
     example_player.train.append([example_board.trick, tile_to_play[0]])
     example_board.ends[index] = spare_tile[0]

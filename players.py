@@ -60,15 +60,23 @@ class Player:
         """
         report = board.report_playables()
         if self.open:
-            #check to see if I'm open
+            # check to see if I'm open
             if self.workingTrain:
                 self.play_tile(board, self.workingTrain[-1], 0)
                 self.open = False
             if self.tiles:
                 for tile in self.tiles:
-                    if tile[0] in report or tile[1] in enumerate(report)[1]:
-                        self.play_tile()
-                reverse_tile =
-
-        if self.workingTrain()
-        pass
+                    for index, report in enumerate(report):
+                        if tile[0] in report or tile[1] in report:
+                            self.play_tile(board, tile, index)
+        # this is what report looks like
+        # [(10, 0), (12, 2)]
+        self.open = True
+        report = board.report_playables()
+        if any(report):
+            if self.spare_tiles:
+                for tile in self.spare_tiles:
+                    for index, report in enumerate(report):
+                        if tile[0] in report or tile[1] in report:
+                            self.play_tile(board, tile, index)
+        # if self.workingTrain()
