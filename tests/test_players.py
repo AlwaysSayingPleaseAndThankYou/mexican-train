@@ -61,12 +61,22 @@ def test_last_tile(example_player, capsys, num_tiles):
 
 
 @pytest.mark.parametrize()
-def test_take_turn(example_player, example_board,):
+def test_take_turn(example_player, example_board, capsys):
     if example_player.open:
+        """This checks if an open player is closed after playing on their own
+        train."""
         # TODO: And you have a tile to play
         example_player.take_turn(example_board)
         assert example_player.open is False
         assert example_board.opens[example_player.player_number] is False
     if example_player.workingTrain[-1] is None:
+        """This is if the player can't place a tile."""
+        starting_tiles = len(example_player.tiles)
         example_player.take_turn(example_board)
-
+        out, err = capsys.readouterr()
+        assert len(example_player.tiles) > starting_tiles or 'cant draw' in out
+        assert example_player.open is True
+        assert example_board.opens[example_player.player_number] is True
+    if example_board.double:
+        # TODO: ending here for the afternoon
+        assert False
