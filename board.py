@@ -13,7 +13,7 @@ class Board:
         self.trick = trick
         self.turn = turn
         self.boneyard = self._make_tiles()
-        self.double = False
+        self.double = [False, None]
         self.mexican_train = trick
         self.boneyard.remove([trick, trick])
         # num_players + 1 to account for mexican train
@@ -51,3 +51,7 @@ class Board:
         """Give a tile out to a player, remove it from the boneyard."""
         index = random.choice(range(len(self.boneyard)))
         return self.boneyard.pop(index)
+
+    def handle_doubles(self, tile, index):
+        """Set up for doubles."""
+        pass

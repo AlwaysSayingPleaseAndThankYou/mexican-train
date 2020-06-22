@@ -46,3 +46,11 @@ def test_report_playables(example_board, ends, opens):
     assert ends[1] not in returned
     for item in returned:
         assert len(item) == 2
+
+
+@pytest.mark.parametrize("tile, index", [([2, 2], 0)])
+def test_handle_doubles(example_board, tile, index):
+    player = example_board.turn % (len(example_board.opens) - 1)
+    train_ends = example_board.ends.copy()
+    example_board.handle_doubles([tile, index])
+    assert False
