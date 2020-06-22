@@ -58,4 +58,17 @@ class Player:
         4. Draw if you can't play
         5. Tap tile.
         """
+        report = board.report_playables()
+        if self.open:
+            #check to see if I'm open
+            if self.workingTrain:
+                self.play_tile(board, self.workingTrain[-1], 0)
+                self.open = False
+            if self.tiles:
+                for tile in self.tiles:
+                    if tile[0] in report or tile[1] in enumerate(report)[1]:
+                        self.play_tile()
+                reverse_tile =
+
+        if self.workingTrain()
         pass

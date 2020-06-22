@@ -64,9 +64,8 @@ def test_last_tile(example_player, capsys, num_tiles):
         assert not stdout.out
 
 
-# this is getting to be made into better tests
 @pytest.mark.skip(reason='making this a series of integration tests')
-def test_take_turn(example_player, example_board, capsys):
+def test_take_turn_bad(example_player, example_board, capsys):
     if example_player.open:
         """This checks if an open player is closed after playing on their own
         train."""
@@ -84,21 +83,21 @@ def test_take_turn(example_player, example_board, capsys):
     if example_board.double:
         assert False
 
-
     def test_take_turn():
         """checks a few unique things about take_turn.
         1. Opens your train at start of your turn."""
         assert False
 
+
 # Integration Tests
 # TODO: rename this
 # TODO: create a player where we know their tiles
-# TODO: this test is not particularly dynamic
 @pytest.mark.parametrize("tile_to_play, spare_tile, index", [([2, 1], [8, 7], 2)])
-def test_turn_a(example_player, example_board, tile_to_play, spare_tile, index):
+def test_turn_ordinary_turn(example_player, example_board, tile_to_play, spare_tile, index):
     """1 other open train. No Doubles. Tiles remaining.
     Your train starts closed.
     """
+    # TODO: this test is not particularly dynamic
     # Setup
     example_player.workingTrain = [tile_to_play]
     if tile_to_play not in example_player.tiles:
@@ -108,7 +107,7 @@ def test_turn_a(example_player, example_board, tile_to_play, spare_tile, index):
     example_board.ends[index] = spare_tile[0]
     example_board.opens[index] = True
     original_open = example_board.opens.copy()
-    # original_ends = example_board.ends.copy()
+    original_ends = example_board.ends.copy()
     # Testing starts here
     example_player.take_turn(example_board)
     assert len(example_player.workingTrain) == 0
@@ -116,3 +115,8 @@ def test_turn_a(example_player, example_board, tile_to_play, spare_tile, index):
     assert example_board.opens == original_open
     assert tile_to_play not in example_player.tiles
     assert example_player.train[-1] == tile_to_play
+    assert original_ends != example_board.ends and len(original_ends) == len(example_board.ends)
+
+
+def test_cannot_play():
+    assert False
