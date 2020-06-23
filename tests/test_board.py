@@ -53,4 +53,6 @@ def test_handle_doubles(example_board, tile, index):
     player = example_board.turn % (len(example_board.opens) - 1)
     train_ends = example_board.ends.copy()
     example_board.handle_doubles([tile, index])
-    assert False
+    assert not example_board.opens[-1]
+    assert example_board.opens[index]
+    assert example_board.ends[index] == tile[0]
