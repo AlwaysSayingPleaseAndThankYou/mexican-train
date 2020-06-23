@@ -18,8 +18,20 @@ class Board:
         self.boneyard.remove([trick, trick])
         # num_players + 1 to account for mexican train
         # Last value is always the mexican train
-        self.opens = [False] * (num_players + 1)
+        self._opens = [False] * (num_players + 1)
         self.ends = [trick] * (num_players + 1)
+
+    @property
+    def opens(self):
+        if self.double[0]:
+            return list(self._opens[self.double[1]])
+        else:
+            return self._opens
+
+    @opens.setter
+    def opens(self, value):
+        pass
+
 
     def _make_tiles(self):
         """Generate all possible tiles, [0,0]=>[12,12]."""
