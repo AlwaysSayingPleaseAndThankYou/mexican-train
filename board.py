@@ -30,7 +30,7 @@ class Board:
 
     @opens.setter
     def opens(self, value):
-        pass
+        self._opens = value
 
 
     def _make_tiles(self):
